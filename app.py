@@ -1,6 +1,7 @@
+from flask import request , jsonify
 from scraper import scrapper
 import flask , flask_cors
-import jsonify
+
 
 myScraper = scrapper()
 
@@ -14,13 +15,21 @@ def resetScraper():
 
 @app.route("/getNext" , methods=["GET"])
 def getNext():
+    myScraper.nextSoup()
     quote = {
         "quote" : myScraper.getQuote(),
         "author" : myScraper.getAuthorName(),
         "bio" : myScraper.getAuthorBio()
     }
-    myScraper.nextSoup()
     return quote
+
+@app.route("/getAmount" , methods=["GET" , "POST"])
+def getNextAmount():
+    data = request.get_data().decode('utf-8')
+    quote_arr = []
+    for x in range(int(data)):
+        quote_arr.append(getNext())
+    return jsonify(quote_arr)
 
 if __name__ == '__main__':
     app.run(debug=True)
