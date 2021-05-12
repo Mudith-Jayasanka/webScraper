@@ -1,6 +1,7 @@
 from flask import request , jsonify
 from scraper import scrapper
 import flask , flask_cors
+import hashlib
 
 
 myScraper = scrapper()
@@ -21,6 +22,11 @@ def getNext():
         "author" : myScraper.getAuthorName(),
         "bio" : myScraper.getAuthorBio()
     }
+
+    Author_bio_quote = quote["author"] + quote["bio"] + quote["quote"]
+    hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
+    quote["hash-key"] = hash_key.hexdigest()
+    
     return quote
 
 @app.route("/getAmount" , methods=["GET" , "POST"])
