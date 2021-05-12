@@ -18,21 +18,24 @@ def resetScraper():
 @app.route("/getNext" , methods=["GET"])
 def getNext():
     myScraper.nextSoup()
-    quote = {
+    try:
+        quote = {
         "quote" : myScraper.getQuote(),
         "author" : myScraper.getAuthorName(),
         "bio" : myScraper.getAuthorBio()
-    }
+        }
 
-    Author_bio_quote = quote["author"] + quote["bio"] + quote["quote"]
-    try:
-        hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
-        quote["hash-key"] = hash_key.hexdigest()
+        Author_bio_quote = quote["author"] + quote["bio"] + quote["quote"]
+        try:
+            hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
+            quote["hash-key"] = hash_key.hexdigest()
+        except:
+            print("--------------------------------")
+            print("Tried to encode : " + Author_bio_quote)
+            quote = getNext()
     except:
-        print("--------------------------------")
-        print("Tried to encode : " + Author_bio_quote)
+        print("BIGGER ERROR")
         quote = getNext()
-
     
     return quote
 
