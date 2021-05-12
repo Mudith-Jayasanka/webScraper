@@ -28,8 +28,7 @@ def getNext():
     try:
         hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
         quote["hash-key"] = hash_key.hexdigest()
-    except error as e:
-        print(e)
+    except:
         print("--------------------------------")
         print("Tried to encode : " + Author_bio_quote)
         quote = getNext()
