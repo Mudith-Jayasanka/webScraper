@@ -1,3 +1,4 @@
+from logging import error
 from flask import request , jsonify
 from scraper import scrapper
 import flask , flask_cors
@@ -24,8 +25,15 @@ def getNext():
     }
 
     Author_bio_quote = quote["author"] + quote["bio"] + quote["quote"]
-    hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
-    quote["hash-key"] = hash_key.hexdigest()
+    try:
+        hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
+        quote["hash-key"] = hash_key.hexdigest()
+    except error as e:
+        print(e)
+        print("--------------------------------")
+        print("Tried to encode : " + Author_bio_quote)
+        quote = getNext()
+
     
     return quote
 
