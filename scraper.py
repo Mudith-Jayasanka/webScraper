@@ -8,6 +8,7 @@ class scrapper():
     def __init__(self):
         self.soup = ""
         self.soup = self.nextSoup()
+        self.soupIndex = 1200
 
     def getQuote(self):
         def decomposeAll(html_data , tag):
@@ -49,8 +50,6 @@ class scrapper():
     def getAuthorBio(self):
         return self.soup.find("div" , id="disp-quote-author-meta").find("p" , class_="author-bio").text
 
-
-    soupIndex = 550
     def nextSoup(self):
         print("Current SoupIndex : " + str(self.soupIndex))
         client = urlopen("https://www.quotes.net/quote/" + str(self.soupIndex))
