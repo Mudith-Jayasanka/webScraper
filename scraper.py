@@ -77,5 +77,8 @@ class scrapper():
 
     def reset(self):
         self.soupIndex = 2
+    
+    def setSoupIndex(self , index):
+        self.soupIndex = index
 
 

@@ -47,6 +47,12 @@ def getNextAmount():
         quote_arr.append(getNext())
     return jsonify(quote_arr)
 
+@app.route("/setStart" , methods=["GET" , "POST"])
+def setIndex():
+    data = request.get_data().decode('utf-8')
+    myScraper.setSoupIndex(int(data))
+    return jsonify("[index Set]-"+str(data))
+
 if __name__ == '__main__':
     app.run(debug=True)
 
