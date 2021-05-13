@@ -18,6 +18,7 @@ def resetScraper():
 @app.route("/getNext" , methods=["GET"])
 def getNext():
     myScraper.nextSoup()
+    continuousBigErrors = 0
     try:
         quote = {
         "quote" : myScraper.getQuote(),
@@ -33,8 +34,12 @@ def getNext():
             print("--------------------------------")
             print("Tried to encode : " + Author_bio_quote)
             quote = getNext()
+        continuousBigErrors = 0
     except:
         print("BIGGER ERROR")
+        continuousBigErrors += 1
+        if(continuousBigErrors  > 5): #Continuous errors in this case mean Quote mining has been completed
+            return None
         quote = getNext()
     
     return quote
@@ -44,7 +49,10 @@ def getNextAmount():
     data = request.get_data().decode('utf-8')
     quote_arr = []
     for x in range(int(data)):
-        quote_arr.append(getNext())
+        nextQuote = getNext()
+        if nextQuote is None:
+            break
+        quote_arr.append(nextQuote)
     return jsonify(quote_arr)
 
 @app.route("/setStart" , methods=["GET" , "POST"])
