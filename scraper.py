@@ -7,8 +7,9 @@ class scrapper():
 
     def __init__(self):
         self.soup = ""
-        self.soup = self.nextSoup()
         self.soupIndex = 1200
+        self.soup = self.nextSoup()
+        
 
     def getQuote(self):
         def decomposeAll(html_data , tag):
