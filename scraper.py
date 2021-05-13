@@ -7,7 +7,7 @@ class scrapper():
 
     def __init__(self):
         self.soup = ""
-        self.soupIndex = 1200
+        self.soupIndex = 3000
         self.soup = self.nextSoup()
         
 

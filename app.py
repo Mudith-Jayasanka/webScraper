@@ -54,5 +54,7 @@ def setIndex():
     return jsonify("[index Set]-"+str(data))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True , use_reloader=False)
 
+#Check this site to check the duplicate request issue
+#https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
