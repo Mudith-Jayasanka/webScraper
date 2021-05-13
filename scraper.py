@@ -50,8 +50,9 @@ class scrapper():
         return self.soup.find("div" , id="disp-quote-author-meta").find("p" , class_="author-bio").text
 
 
-    soupIndex = 2
+    soupIndex = 550
     def nextSoup(self):
+        print("Current SoupIndex : " + str(self.soupIndex))
         client = urlopen("https://www.quotes.net/quote/" + str(self.soupIndex))
         page_html = client.read()
         client.close()

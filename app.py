@@ -27,7 +27,7 @@ def getNext():
 
         Author_bio_quote = quote["author"] + quote["bio"] + quote["quote"]
         try:
-            hash_key = hashlib.sha256( Author_bio_quote.encode("ascii") )
+            hash_key = hashlib.sha256( Author_bio_quote.encode("utf8") )
             quote["hash-key"] = hash_key.hexdigest()
         except:
             print("--------------------------------")
